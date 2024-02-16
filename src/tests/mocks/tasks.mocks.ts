@@ -49,7 +49,7 @@ export const getTaskList = async () => {
       {
          title: "Lorem ipsum",
          content: "Lorem ipsum",
-         categoryId: category?.id,
+         categoryId: category?.id!,
       },
    ];
 };
