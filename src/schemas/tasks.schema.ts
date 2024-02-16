@@ -16,7 +16,7 @@ const getTaskSchema = taskSchema.omit({ categoryId: true }).extend({
 });
 
 const updateTaskSchema = taskSchema
-  .omit({ id: true })
+  .omit({ id: true });
 
 export {
   taskSchema,

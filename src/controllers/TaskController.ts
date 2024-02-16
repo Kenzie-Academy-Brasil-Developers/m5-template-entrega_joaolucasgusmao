@@ -13,7 +13,7 @@ class TaskController {
   };
 
   public read = async (req: Request, res: Response): Promise<Response> => {
-    const tasks = await this.TaskServices.read(String(req.query.category))
+    const tasks = await this.TaskServices.read(req.query.category as string | undefined)
 
     return res.status(200).json(tasks);
   };
@@ -23,12 +23,6 @@ class TaskController {
 
     return res.status(200).json(task);
   };
-
-  // public search = async (req: Request, res: Response): Promise<Response> => {
-  //   const task = await this.TaskServices.search(String(req.query.category));
-
-  //   return res.status(200).json(task);
-  // };
 
   public update = async (req: Request, res: Response): Promise<Response> => {
     const taskUpdated = await this.TaskServices.update(

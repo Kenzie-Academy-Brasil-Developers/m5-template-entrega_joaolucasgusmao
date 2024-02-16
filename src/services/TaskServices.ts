@@ -1,8 +1,8 @@
 import {
-  getTask,
-  taskCreate,
-  taskReturn,
-  updateTask,
+  TaskCreate,
+  TaskReturn,
+  GetTask,
+  UpdateTask,
 } from "../interfaces";
 import { prisma } from "../database/prisma";
 import { getTaskSchema, taskSchema } from "../schemas";
@@ -11,14 +11,14 @@ import { injectable } from "tsyringe";
 
 @injectable()
 class TaskServices {
-  public create = async (data: taskCreate): Promise<taskReturn> => {
+  public create = async (data: TaskCreate): Promise<TaskReturn> => {
 
     const newTask = await prisma.task.create({ data });
 
     return taskSchema.parse(newTask);
   };
 
-  public read = async (categoryName?: string): Promise<Array<getTask>> => {
+  public read = async (categoryName: string | undefined): Promise<Array<GetTask>> => {
 
     if (categoryName) {
       const task = await prisma.task.findMany({
@@ -34,7 +34,7 @@ class TaskServices {
         take: 1
       });
       return getTaskSchema.array().parse(task);
-    }
+    };
     const taskList = await prisma.task.findMany({
       include: { category: true },
     });
@@ -42,17 +42,7 @@ class TaskServices {
     return getTaskSchema.array().parse(taskList.sort((a, b) => a.id - b.id));
   };
 
-  // public search = async (categoryName: string): Promise<Array<getTask>> => {
-  //   const task = await prisma.task.findMany({
-  //     where: { category: { name: { contains: categoryName, mode: "insensitive" } } },
-  //     include: { category: true },
-  //     take: 1
-  //   });
-
-  //   return getTaskSchema.array().parse(task);
-  // };
-
-  public retrieve = async (taskId: number): Promise<getTask> => {
+  public retrieve = async (taskId: number): Promise<GetTask> => {
     const foundTask = await prisma.task.findFirst({
       where: { id: taskId },
       include: { category: true },
@@ -63,8 +53,8 @@ class TaskServices {
 
   public update = async (
     taskId: number,
-    data: updateTask
-  ): Promise<taskReturn> => {
+    data: UpdateTask
+  ): Promise<TaskReturn> => {
     const task = await prisma.task.update({
       where: { id: taskId },
       data,

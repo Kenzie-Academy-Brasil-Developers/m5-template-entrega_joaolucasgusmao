@@ -5,10 +5,10 @@ import {
   taskSchema,
 } from "../schemas";
 
-type taskCreate = z.infer<typeof createTaskSchema> & { categoryId: number | null };
-type taskReturn = z.infer<typeof taskSchema>;
-type getTask = z.infer<typeof getTaskSchema>;
-type updateTask = Partial<taskCreate>
+type TaskCreate = z.infer<typeof createTaskSchema> & { categoryId: number | null };
+type TaskReturn = z.infer<typeof taskSchema>;
+type GetTask = z.infer<typeof getTaskSchema>;
+type UpdateTask = Partial<TaskCreate>
 
 
-export { taskCreate, taskReturn, getTask, updateTask};
+export { TaskCreate, TaskReturn, GetTask, UpdateTask};

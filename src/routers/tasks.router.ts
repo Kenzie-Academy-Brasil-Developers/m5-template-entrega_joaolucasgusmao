@@ -12,14 +12,11 @@ const controller = container.resolve(TaskController);
 
 taskRouter.post("", ensure.validBody(createTaskSchema), ensure.categoryIdExists, (req, res) => controller.create(req, res));
 taskRouter.get("", (req, res) => controller.read(req, res));
-// taskRouter.get("", (req, res) => controller.search(req, res));
 
-taskRouter.use("/:id", ensure.idExists)
+taskRouter.use("/:id", ensure.idExists);
 
 taskRouter.get("/:id", (req, res) => controller.retrieve(req, res));
-
 taskRouter.patch("/:id", ensure.validBody(updateTaskSchema), ensure.categoryIdExists, (req, res) => controller.update(req, res));
-
 taskRouter.delete("/:id", (req, res) => controller.delete(req, res));
 
 export { taskRouter };
