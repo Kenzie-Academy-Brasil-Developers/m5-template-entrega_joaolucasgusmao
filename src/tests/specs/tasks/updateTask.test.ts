@@ -19,7 +19,7 @@ const updateTaskBeforeEach = async () => {
 
   await prisma.category.create({ data: category(user1.id) });
   const taskList = await getTaskList(user1.id);
-  await prisma.task.createMany({ data: taskList });
+  // await prisma.task.createMany({ data: taskList });
 
   const { token: token2 } = await generateAuthentication(secondUserMock);
 
