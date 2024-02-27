@@ -10,13 +10,30 @@ const taskRouter = Router();
 container.registerSingleton("TaskServices", TaskServices);
 const controller = container.resolve(TaskController);
 
-taskRouter.post("", ensure.validBody(createTaskSchema), ensure.categoryIdExists, (req, res) => controller.create(req, res));
-taskRouter.get("", (req, res) => controller.read(req, res));
+taskRouter.post(
+  "",
+  ensure.tokenIsValid,
+  ensure.validBody(createTaskSchema),
+  ensure.categoryIdExists,
+  (req, res) => controller.create(req, res),
+);
+taskRouter.get("", ensure.tokenIsValid, (req, res) =>
+  controller.read(req, res),
+);
 
-taskRouter.use("/:id", ensure.idExists);
+taskRouter.use(
+  "/:id",
+  ensure.idExists,
+  ensure.tokenIsValid,
+  ensure.isTaskOwner,
+);
 
 taskRouter.get("/:id", (req, res) => controller.retrieve(req, res));
-taskRouter.patch("/:id", ensure.validBody(updateTaskSchema), ensure.categoryIdExists, (req, res) => controller.update(req, res));
+
+taskRouter.patch("/:id", ensure.validBody(updateTaskSchema), (req, res) =>
+  controller.update(req, res),
+);
+
 taskRouter.delete("/:id", (req, res) => controller.delete(req, res));
 
 export { taskRouter };

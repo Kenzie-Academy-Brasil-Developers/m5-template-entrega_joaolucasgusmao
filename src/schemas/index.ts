@@ -7,6 +7,13 @@ import {
   updateTaskSchema,
 } from "./tasks.schema";
 
+import {
+  userSchema,
+  userCreateSchema,
+  userLoginSchema,
+  userReturnSchema,
+} from "./users.schemas";
+
 export {
   baseSchema,
   categorySchema,
@@ -15,4 +22,8 @@ export {
   createTaskSchema,
   getTaskSchema,
   updateTaskSchema,
+  userSchema,
+  userCreateSchema,
+  userLoginSchema,
+  userReturnSchema,
 };

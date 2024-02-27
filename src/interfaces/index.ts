@@ -1,12 +1,14 @@
-import {
-  TaskCreate,
-  TaskReturn,
-  GetTask,
-  UpdateTask,
-} from "./tasks.interface";
+import { TaskCreate, TaskReturn, GetTask, UpdateTask } from "./tasks.interface";
 
 import { CreateCategory, CategoryReturn } from "./categories.interface";
 
+import {
+  UserCreate,
+  UserLogin,
+  GetUser,
+  UserReturn,
+  UserLoginReturn,
+} from "./users.interface";
 
 export {
   TaskCreate,
@@ -15,4 +17,9 @@ export {
   UpdateTask,
   CreateCategory,
   CategoryReturn,
+  UserCreate,
+  UserLogin,
+  GetUser,
+  UserReturn,
+  UserLoginReturn,
 };

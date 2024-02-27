@@ -4,7 +4,9 @@ import { inject, injectable } from "tsyringe";
 
 @injectable()
 class CategoryController {
-  constructor(@inject("CategoryServices") private CategoriesServices: CategoryServices) { };
+  constructor(
+    @inject("CategoryServices") private CategoriesServices: CategoryServices,
+  ) {}
 
   public create = async (req: Request, res: Response): Promise<Response> => {
     const newCategory = await this.CategoriesServices.create(req.body);

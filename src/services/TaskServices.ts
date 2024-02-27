@@ -1,25 +1,21 @@
-import {
-  TaskCreate,
-  TaskReturn,
-  GetTask,
-  UpdateTask,
-} from "../interfaces";
+import { TaskCreate, TaskReturn, GetTask, UpdateTask } from "../interfaces";
 import { prisma } from "../database/prisma";
 import { getTaskSchema, taskSchema } from "../schemas";
 import { injectable } from "tsyringe";
-
+import { AppError } from "../middlewares/errors";
 
 @injectable()
 class TaskServices {
   public create = async (data: TaskCreate): Promise<TaskReturn> => {
-
     const newTask = await prisma.task.create({ data });
 
     return taskSchema.parse(newTask);
   };
 
-  public read = async (categoryName: string | undefined): Promise<Array<GetTask>> => {
-
+  public read = async (
+    categoryName: string | undefined,
+    userOwnerId: number,
+  ): Promise<Array<GetTask>> => {
     if (categoryName) {
       const task = await prisma.task.findMany({
         where: {
@@ -28,16 +24,25 @@ class TaskServices {
               contains: categoryName,
               mode: "insensitive",
             },
+            userId: userOwnerId,
           },
         },
         include: { category: true },
-        take: 1
+        take: 1,
       });
+
+      if (task.length === 0 || task[0].category?.userId !== userOwnerId)
+        throw new AppError("This user is not the task owner", 403);
+
       return getTaskSchema.array().parse(task);
-    };
+    }
+
     const taskList = await prisma.task.findMany({
-      include: { category: true },
+      where: { userId: userOwnerId },
     });
+
+    if (taskList.length === 0)
+      throw new AppError("This user has no tasks registered", 404);
 
     return getTaskSchema.array().parse(taskList.sort((a, b) => a.id - b.id));
   };
@@ -53,7 +58,7 @@ class TaskServices {
 
   public update = async (
     taskId: number,
-    data: UpdateTask
+    data: UpdateTask,
   ): Promise<TaskReturn> => {
     const task = await prisma.task.update({
       where: { id: taskId },
