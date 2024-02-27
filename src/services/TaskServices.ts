@@ -31,8 +31,7 @@ class TaskServices {
         take: 1,
       });
 
-      if (task.length === 0 || task[0].category?.userId !== userOwnerId)
-        throw new AppError("This user is not the task owner", 403);
+      if (task.length === 0 || task[0].category?.userId !== userOwnerId) throw new AppError("This user is not the task owner", 403);
 
       return getTaskSchema.array().parse(task);
     }
@@ -41,8 +40,7 @@ class TaskServices {
       where: { userId: userOwnerId },
     });
 
-    if (taskList.length === 0)
-      throw new AppError("This user has no tasks registered", 404);
+    if (taskList.length === 0) throw new AppError("This user has no tasks registered", 404);
 
     return getTaskSchema.array().parse(taskList.sort((a, b) => a.id - b.id));
   };

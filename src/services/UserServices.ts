@@ -21,8 +21,7 @@ class UserServices {
       where: { email: data.email },
     });
 
-    if (emailExists)
-      throw new AppError("This email is already registered", 409);
+    if (emailExists) throw new AppError("This email is already registered", 409);
 
     const newUser = await prisma.user.create({
       data: { ...data, password: hashedPwd },

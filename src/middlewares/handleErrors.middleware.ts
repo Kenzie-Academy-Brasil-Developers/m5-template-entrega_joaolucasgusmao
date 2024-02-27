@@ -10,17 +10,11 @@ class HandleErrorMiddleware {
     res: Response,
     __: NextFunction,
   ): Response => {
-    if (error instanceof AppError) {
-      return res.status(error.status).json({ message: error.message });
-    }
+    if (error instanceof AppError) return res.status(error.status).json({ message: error.message });
 
-    if (error instanceof ZodError) {
-      return res.status(409).json({ message: error.errors });
-    }
+    if (error instanceof ZodError) return res.status(409).json({ message: error.errors });
 
-    if (error instanceof JsonWebTokenError) {
-      return res.status(401).json({ message: error.message });
-    }
+    if (error instanceof JsonWebTokenError) return res.status(401).json({ message: error.message });
 
     return res.status(500).json({ message: "Internal Server Error." });
   };
