@@ -23,8 +23,8 @@ taskRouter.get("", ensure.tokenIsValid, (req, res) =>
 
 taskRouter.use(
   "/:id",
-  ensure.idExists,
   ensure.tokenIsValid,
+  ensure.idExists,
   ensure.isTaskOwner,
 );
 

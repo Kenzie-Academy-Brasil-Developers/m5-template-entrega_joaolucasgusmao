@@ -4,7 +4,7 @@ import { inject, injectable } from "tsyringe";
 
 @injectable()
 class UserController {
-  constructor(@inject("UserServices") private UserServices: UserServices) {}
+  constructor(@inject("UserServices") private UserServices: UserServices) { }
   public register = async (req: Request, res: Response): Promise<Response> => {
     const newUser = await this.UserServices.register(req.body);
 
@@ -18,7 +18,7 @@ class UserController {
   };
 
   public autoLogin = async (_: Request, res: Response): Promise<Response> => {
-    const user = await this.UserServices.autoLogin(res.locals.decode.user);
+    const user = await this.UserServices.autoLogin(res.locals.decode.id);
 
     return res.status(200).json(user);
   };

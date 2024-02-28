@@ -51,7 +51,8 @@ class UserServices {
     };
   };
 
-  public autoLogin = async (user: UserReturn): Promise<UserReturn> => {
+  public autoLogin = async (userId: number): Promise<UserReturn> => {
+    const user = await prisma.user.findFirst({ where: { id: userId } })
     return userReturnSchema.parse(user);
   };
 }

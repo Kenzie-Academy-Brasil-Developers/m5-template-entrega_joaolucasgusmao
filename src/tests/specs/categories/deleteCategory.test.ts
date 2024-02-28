@@ -4,8 +4,8 @@ import { category } from "../../mocks/category.mocks";
 import { secondUserMock } from "../../mocks/user.mocks";
 import { request } from "../../setupFiles";
 import {
-  generateAuthentication,
-  generateInvalidToken,
+   generateAuthentication,
+   generateInvalidToken,
 } from "../../utils/generateAuthentication";
 
 const deleteCategoryBeforeEach = async () => {

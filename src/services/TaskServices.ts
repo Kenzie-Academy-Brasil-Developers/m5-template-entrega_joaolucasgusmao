@@ -14,7 +14,6 @@ class TaskServices {
 
   public read = async (
     categoryName: string | undefined,
-    userOwnerId: number,
   ): Promise<Array<GetTask>> => {
     if (categoryName) {
       const task = await prisma.task.findMany({
@@ -24,23 +23,16 @@ class TaskServices {
               contains: categoryName,
               mode: "insensitive",
             },
-            userId: userOwnerId,
           },
         },
         include: { category: true },
         take: 1,
       });
 
-      if (task.length === 0 || task[0].category?.userId !== userOwnerId) throw new AppError("This user is not the task owner", 403);
-
       return getTaskSchema.array().parse(task);
     }
 
-    const taskList = await prisma.task.findMany({
-      where: { userId: userOwnerId },
-    });
-
-    if (taskList.length === 0) throw new AppError("This user has no tasks registered", 404);
+    const taskList = await prisma.task.findMany({ include: { category: true }, take: 2 });
 
     return getTaskSchema.array().parse(taskList.sort((a, b) => a.id - b.id));
   };

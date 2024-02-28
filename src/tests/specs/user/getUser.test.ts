@@ -1,8 +1,8 @@
 import { describe, it } from "vitest";
 import { request } from "../../setupFiles";
 import {
-  generateAuthentication,
-  generateInvalidToken,
+   generateAuthentication,
+   generateInvalidToken,
 } from "../../utils/generateAuthentication";
 import { userDefaultExpects } from "../../utils/userDefaultExpects";
 

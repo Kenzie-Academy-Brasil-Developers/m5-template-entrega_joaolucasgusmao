@@ -2,15 +2,15 @@ import { describe, expect, it } from "vitest";
 import { prisma } from "../../../database/prisma";
 import { category } from "../../mocks/category.mocks";
 import {
-  getTaskList,
-  invalidDataUpdateTask,
-  updateTask,
+   getTaskList,
+   invalidDataUpdateTask,
+   updateTask,
 } from "../../mocks/tasks.mocks";
 import { secondUserMock } from "../../mocks/user.mocks";
 import { request } from "../../setupFiles";
 import {
-  generateAuthentication,
-  generateInvalidToken,
+   generateAuthentication,
+   generateInvalidToken,
 } from "../../utils/generateAuthentication";
 import { taskDefaultExpects } from "../../utils/taskDefaultExpects";
 
@@ -19,7 +19,7 @@ const updateTaskBeforeEach = async () => {
 
   await prisma.category.create({ data: category(user1.id) });
   const taskList = await getTaskList(user1.id);
-  // await prisma.task.createMany({ data: taskList });
+  await prisma.task.createMany({ data: taskList });
 
   const { token: token2 } = await generateAuthentication(secondUserMock);
 

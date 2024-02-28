@@ -6,8 +6,8 @@ import { secondUserMock } from "../../mocks/user.mocks";
 import { request } from "../../setupFiles";
 import { categoryDefaultExpects } from "../../utils/categoryDefaultExpects";
 import {
-  generateAuthentication,
-  generateInvalidToken,
+   generateAuthentication,
+   generateInvalidToken,
 } from "../../utils/generateAuthentication";
 import { taskDefaultExpects } from "../../utils/taskDefaultExpects";
 
@@ -18,10 +18,11 @@ const getTasksBeforeEach = async () => {
 
   const taskList = await getTaskList(user1.id);
 
-  // await prisma.task.createMany({ data: taskList });
+  await prisma.task.createMany({ data: taskList });
 
-  const { user: user2, token: token2 } =
-    await generateAuthentication(secondUserMock);
+  const { user: user2, token: token2 } = await generateAuthentication(
+    secondUserMock
+  );
 
   await prisma.task.create({ data: { ...task, userId: user2.id } });
 

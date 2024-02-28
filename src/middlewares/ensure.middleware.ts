@@ -81,7 +81,7 @@ class EnsureMiddleware {
     res: Response,
     next: NextFunction,
   ): Promise<void> => {
-    const userOwnerId = res.locals.decode.user.id;
+    const userOwnerId = res.locals.decode.id;
 
     const taskId = Number(req.params.id);
 
@@ -99,7 +99,7 @@ class EnsureMiddleware {
     res: Response,
     next: NextFunction,
   ): Promise<void> => {
-    const userOwnerId = res.locals.decode.user.id;
+    const userOwnerId = res.locals.decode.id;
 
     const taskId = Number(req.params.id);
 
