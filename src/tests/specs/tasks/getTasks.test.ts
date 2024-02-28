@@ -16,7 +16,7 @@ const getTasksBeforeEach = async () => {
 
   await prisma.category.create({ data: category(user1.id) });
 
-  const taskList = await getTaskList(user1.id);
+  const taskList = await getTaskList(user1.id) as any;
 
   await prisma.task.createMany({ data: taskList });
 
