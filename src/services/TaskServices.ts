@@ -32,7 +32,10 @@ class TaskServices {
       return getTaskSchema.array().parse(task);
     }
 
-    const taskList = await prisma.task.findMany({ include: { category: true }, take: 2 });
+    const taskList = await prisma.task.findMany({
+      include: { category: true },
+      take: 2,
+    });
 
     return getTaskSchema.array().parse(taskList.sort((a, b) => a.id - b.id));
   };

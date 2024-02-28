@@ -7,11 +7,11 @@ import jwt from "jsonwebtoken";
 class EnsureMiddleware {
   public validBody =
     (schema: AnyZodObject) =>
-      async (req: Request, _: Response, next: NextFunction): Promise<void> => {
-        req.body = await schema.parseAsync(req.body);
+    async (req: Request, _: Response, next: NextFunction): Promise<void> => {
+      req.body = await schema.parseAsync(req.body);
 
-        return next();
-      };
+      return next();
+    };
 
   public idExists = async (req: Request, _: Response, next: NextFunction) => {
     const { id } = req.params;
@@ -89,7 +89,8 @@ class EnsureMiddleware {
       where: { id: taskId },
     });
 
-    if (userTaskOwner?.userId !== userOwnerId) throw new AppError("This user is not the task owner", 403);
+    if (userTaskOwner?.userId !== userOwnerId)
+      throw new AppError("This user is not the task owner", 403);
 
     return next();
   };
@@ -107,7 +108,8 @@ class EnsureMiddleware {
       where: { id: taskId },
     });
 
-    if (userCategory?.userId !== userOwnerId) throw new AppError("This user is not the category owner", 403);
+    if (userCategory?.userId !== userOwnerId)
+      throw new AppError("This user is not the category owner", 403);
 
     return next();
   };

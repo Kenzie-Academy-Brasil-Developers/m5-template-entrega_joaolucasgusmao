@@ -2,15 +2,15 @@ import { describe, expect, it } from "vitest";
 import { prisma } from "../../../database/prisma";
 import { category } from "../../mocks/category.mocks";
 import {
-   getTaskList,
-   invalidDataUpdateTask,
-   updateTask,
+  getTaskList,
+  invalidDataUpdateTask,
+  updateTask,
 } from "../../mocks/tasks.mocks";
 import { secondUserMock } from "../../mocks/user.mocks";
 import { request } from "../../setupFiles";
 import {
-   generateAuthentication,
-   generateInvalidToken,
+  generateAuthentication,
+  generateInvalidToken,
 } from "../../utils/generateAuthentication";
 import { taskDefaultExpects } from "../../utils/taskDefaultExpects";
 

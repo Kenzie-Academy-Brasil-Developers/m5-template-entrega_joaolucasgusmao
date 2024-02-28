@@ -4,7 +4,7 @@ import { inject, injectable } from "tsyringe";
 
 @injectable()
 class TaskController {
-  constructor(@inject("TaskServices") private TaskServices: TaskServices) { }
+  constructor(@inject("TaskServices") private TaskServices: TaskServices) {}
 
   public create = async (req: Request, res: Response) => {
     const newTask = await this.TaskServices.create(req.body);
@@ -14,7 +14,7 @@ class TaskController {
 
   public read = async (req: Request, res: Response): Promise<Response> => {
     const tasks = await this.TaskServices.read(
-      req.query.category as string | undefined
+      req.query.category as string | undefined,
     );
 
     return res.status(200).json(tasks);

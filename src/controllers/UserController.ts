@@ -4,7 +4,7 @@ import { inject, injectable } from "tsyringe";
 
 @injectable()
 class UserController {
-  constructor(@inject("UserServices") private UserServices: UserServices) { }
+  constructor(@inject("UserServices") private UserServices: UserServices) {}
   public register = async (req: Request, res: Response): Promise<Response> => {
     const newUser = await this.UserServices.register(req.body);
 

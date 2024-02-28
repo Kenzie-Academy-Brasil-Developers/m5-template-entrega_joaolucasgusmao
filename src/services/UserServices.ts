@@ -21,7 +21,8 @@ class UserServices {
       where: { email: data.email },
     });
 
-    if (emailExists) throw new AppError("This email is already registered", 409);
+    if (emailExists)
+      throw new AppError("This email is already registered", 409);
 
     const newUser = await prisma.user.create({
       data: { ...data, password: hashedPwd },
@@ -52,7 +53,7 @@ class UserServices {
   };
 
   public autoLogin = async (userId: number): Promise<UserReturn> => {
-    const user = await prisma.user.findFirst({ where: { id: userId } })
+    const user = await prisma.user.findFirst({ where: { id: userId } });
     return userReturnSchema.parse(user);
   };
 }

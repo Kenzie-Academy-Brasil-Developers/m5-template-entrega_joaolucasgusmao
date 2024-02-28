@@ -1,13 +1,13 @@
 import { describe, it } from "vitest";
 import {
-   invalidDataTask,
-   task,
-   taskWithInvalidCategory,
+  invalidDataTask,
+  task,
+  taskWithInvalidCategory,
 } from "../../mocks/tasks.mocks";
 import { request } from "../../setupFiles";
 import {
-   generateAuthentication,
-   generateInvalidToken,
+  generateAuthentication,
+  generateInvalidToken,
 } from "../../utils/generateAuthentication";
 import { taskDefaultExpects } from "../../utils/taskDefaultExpects";
 
